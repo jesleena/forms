@@ -144,10 +144,9 @@ class _FormScreenState extends State<FormScreen> {
       controller: dateController, //editing controller of this TextField
       decoration: const InputDecoration(
           border: OutlineInputBorder(),
-
-          icon: Icon(Icons.calendar_today), //icon of text field
           labelText: " Date" ,
-          hintText:"select date" //label text of field
+          hintText:"select date" ,
+          suffixIcon: Icon(Icons.calendar_today), //label text of field
       ),
       readOnly: true,  // when true user cannot edit text
       onTap: () async {
@@ -167,11 +166,13 @@ class _FormScreenState extends State<FormScreen> {
 
           setState(() {
             dateController.text = formattedDate;
-            Date= formattedDate;//set foratted date to TextField value.
-          });
-        }else{
-          print("Date is not selected");
+           Date= formattedDate;//set foratted date to TextField value.
+          }
+        );
         }
+        //else{
+        //  print("Date is not selected");
+       // }
       },
       validator: (value){
         if(value!.isEmpty) {
