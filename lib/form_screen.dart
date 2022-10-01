@@ -170,9 +170,7 @@ class _FormScreenState extends State<FormScreen> {
           }
         );
         }
-        //else{
-        //  print("Date is not selected");
-       // }
+       
       },
       validator: (value){
         if(value!.isEmpty) {
