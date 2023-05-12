@@ -32,8 +32,8 @@ class _FormScreenState extends State<FormScreen> {
       hint: const Text('Select Currency'),
       value: selectedMoney,
 
-      onChanged: (currency) async {
-        setState(() => selectedMoney = currency.toString());
+      onChanged: (value) async {
+        setState(() => selectedMoney = value.toString());
         if(selectedMoney != null ){
           print(selectedMoney);  }
       },
@@ -130,48 +130,44 @@ class _FormScreenState extends State<FormScreen> {
           labelText: "Description",
           hintText:"Enter Description"
       ),
-      onSaved: (value)  {
-
+      onSaved:(value)  {
         if(value != null ){
           print(value);
         Description=value;
+
         }
       },
     );}
   Widget _buildDate() {
     return TextFormField(
 
-      controller: dateController, //editing controller of this TextField
+      controller: dateController,
       decoration: const InputDecoration(
           border: OutlineInputBorder(),
-
-          icon: Icon(Icons.calendar_today), //icon of text field
           labelText: " Date" ,
-          hintText:"select date" //label text of field
+          hintText:"select date" ,
+        suffixIcon: Icon(Icons.calendar_today),
       ),
       readOnly: true,  // when true user cannot edit text
       onTap: () async {
         DateTime? pickedDate = await showDatePicker(
           context: context,
-          initialDate: DateTime.now(), //get today's date
-          firstDate: DateTime.now(), //DateTime.now() - not to allow to choose before today.
+          initialDate: DateTime.now(),
+          firstDate: DateTime.now(),
           lastDate: DateTime(2101),
-
         );
 
         if(pickedDate != null ){
-          print(pickedDate);  //get the picked date in the format => 2022-07-04 00:00:00.000
-          String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
-          print(formattedDate); //formatted date output using intl package =>  2022-07-04
-          //You can format date as per your need
+         String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+         print(formattedDate);
 
           setState(() {
             dateController.text = formattedDate;
-            Date= formattedDate;//set foratted date to TextField value.
-          });
-        }else{
-          print("Date is not selected");
+           Date= formattedDate;//set foratted date to TextField value.
+          }
+        );
         }
+
       },
       validator: (value){
         if(value!.isEmpty) {
@@ -246,7 +242,6 @@ class _FormScreenState extends State<FormScreen> {
                       ElevatedButton(onPressed: (){
                         if(formKey.currentState !.validate()){
                           formKey.currentState?.reset();
-
                           print('Submitting form');
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data')),
